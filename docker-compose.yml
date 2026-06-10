@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  db:
+    image: ankane/pgvector:latest
+    container_name: outing_vector_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: outings_db
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "15432:5432"
+    volumes:
+      - pgdata_new:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  pgdata_new:
