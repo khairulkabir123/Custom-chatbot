@@ -34,7 +34,18 @@ def search_outings(query: str, max_price: float = None) -> str:
         # Format results as a readable string for the AI model
         formatted = []
         for r in results:
-            formatted.append(f"- Name: {r.name}\n  Location: {r.city}\n  Price: ${r.price}\n  Description: {r.shortDesc}")
+            details = [
+                f"- Name: {r.name}",
+                f"  Location: {r.city}, {r.address}",
+                f"  Price: ${r.price}",
+                f"  Description: {r.shortDesc}",
+                f"  Cancel Policy: {r.cancelPolicy}",
+                f"  Guest Requirements: {r.guestRequirements}",
+                f"  Rating: {r.averageRating} ({r.reviewCount} reviews)",
+                f"  Max Guests: {r.maxGuest}",
+                f"  Notes: {r.notes}"
+            ]
+            formatted.append("\n".join(details))
             
         return "\n\n".join(formatted)
     except Exception as e:
